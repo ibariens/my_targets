@@ -2,9 +2,19 @@
   <div class="top-bar-left">
     <ul class="dropdown menu" data-dropdown-menu>
       <li class="menu-text">my targets</li>
-      <li><a href="#">overview</a>
-      <li><a href="#">add new</a></li>
-      <li><a href="#">edit</a></li>
+      <li><%= link_to "overview", overview_index_path %></li>
+      <li><%= link_to "add new target", new_target_path %></li>
+      <li><%= link_to "edit targets", new_target_path %></li>
     </ul>
   </div>
+  <div class="top-bar-right">
+    <% if current_user %>
+        <%= link_to "Edit Profile", edit_user_path(current_user.id) %> |
+        <%= link_to "Logout", :logout, method: :post %>
+    <% else %>
+        <%= link_to "Register", new_user_path %> |
+        <%= link_to "Login", :login %>
+    <% end %>
+  </div>
 </div>
+
