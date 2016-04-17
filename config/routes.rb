@@ -5,8 +5,7 @@ Rails.application.routes.draw do
   # mount ActionCable.server => '/cable'
 
   resources :overview
-  resources :target
-  resources :target_day
+  resources :targets
 
   root to: 'overview#index'
 end

@@ -1,8 +1,6 @@
 <% sum_of_targets = get_sum_of_period(target.target_days, @time_period) %>
-<% sum_of_actuals = get_sum_of_period(target.actuals, @time_period) %>
+<% sum_of_actuals = get_sum_of_period(target.actuals,     @time_period) %>
 <% perct_reached  = sum_of_targets > 0 ? (sum_of_actuals*100 / sum_of_targets).round(2) : 0 %>
-
-
 
 <div class="small-12 medium-6 large-3 columns">
   <div class="row align-center">

@@ -1,0 +1,43 @@
+<div class="row">&nbsp;</div>
+<div class="row"><h4><%= @target.name.try(:downcase) %></h4></div>
+<div class="row">
+  <%= form_for(@target, remote: false) do |target_form| %>
+      <%= month_calendar events: @target.target_days do |date, target_days| %>
+          <div class="float-right"><small><%= date.strftime("%d") %></small></div>
+              <%= target_form.fields_for :target_days, target_days do |target_day_f| %>
+                  <%= target_day_f.text_field :amount, :type => "number", :class => "input-group-field" %>
+              <% end %>
+      <% end %>
+
+      <div class="row">
+        <div class="small-1 columns">
+          <input type="text" name="total" id="total" style="background-color: #dddddd;" />
+        </div>
+        <div class="small-11 columns">
+          <%= target_form.submit :class => "button float-right", :value => "add update" %>
+        </div>
+      </div>
+  <% end %>
+</div>
+
+
+
+<script>
+  function update_total() {
+    var inputs = $(".input-group-field")
+    var sum = 0;
+
+    for (var i=0; i < inputs.length; i++){
+      sum += parseFloat(inputs[i].value) || 0;
+      console.log(sum);
+    }
+    $("#total").val(sum);
+  }
+
+
+  $("form.edit_target").on("change" , function(e){
+    update_total();
+  });
+
+  $(document).ready(function(){ update_total();})
+</script>

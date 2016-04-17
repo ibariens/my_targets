@@ -1,3 +1,3 @@
 class Actual < ActiveRecord::Base
-  belongs_to :target
+  belongs_to :targets
 end
