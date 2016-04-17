@@ -1,0 +1,56 @@
+<% sum_of_targets = get_sum_of_period(target.target_days, @time_period) %>
+<% sum_of_actuals = get_sum_of_period(target.actuals, @time_period) %>
+<% perct_reached  = sum_of_targets > 0 ? (sum_of_actuals*100 / sum_of_targets).round(2) : 0 %>
+
+
+
+<div class="small-12 medium-6 large-3 columns">
+  <div class="row align-center">
+    <div class="small-11 columns align-self-middle" style="background-color:#e0e0e0;">
+      <div class="target_box">
+
+        <div class="space"></div>
+        <div class="row"><strong><%= target.name.try(:downcase) %>:</strong></div>
+        <div class="row"><%= sum_of_targets %> <%= target.measurement_unit %> per <%= @time_period %>.</div>
+        <div class="row"><%= perct_reached.to_i %> %</div>
+
+
+        <div class="space"></div>
+        <div class="space"></div>
+
+
+        <div class="row">
+          <progress value="<%= [perct_reached.to_i,100].min %>" max="100"></progress>
+        </div>
+
+        <div class="row">
+          <%= form_for(target, :html => {:'data-abide' => '' }) do |target_form| %>
+              <div class="input-group">
+                <%= target_form.fields_for :actuals, target.actuals.build do |actual_field| %>
+                    <%= actual_field.text_field :amount, :label => false, :type => "number", :class => "input-group-field", :required => ''%>
+                <% end %>
+                <div class="input-group-button">
+                  <%= target_form.submit :class => "button", :value => "add update", data: { :disable_with => false} %>
+                </div>
+              </div>
+          <% end %>
+        </div>
+
+        <div class="row">
+          <div class="small-12 columns">
+            <div class="float-right">
+              <p id="open_panel_<%= target.id %>" class="float-left">
+                <a data-toggle="panel_<%= target.id %>" class="right">
+                  <%= with_details ? "close" : "details" %>
+                </a>
+              </p>
+
+            <%= link_to "/edit", edit_target_path(target) %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

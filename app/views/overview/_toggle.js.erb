@@ -1,0 +1,22 @@
+
+  var item = document.getElementById("open_panel_<%= target.id %>");
+
+
+  //        item.addEventListener("mouseover", mouse_in, false);
+  //       item.addEventListener("mouseout", mouse_out, false);
+
+  item.onclick = mouse_in();
+
+  function mouse_in()
+  {
+      console.log("#target_group_<%= target_group_no %>");
+      $("#target_group_<%= target_group_no %>").foundation('toggle');
+      console.log("sdf");
+      //         $("#panel_<%= target.id %>").foundation('toggle');
+      }
+
+  function mouse_out()
+  {
+      $("#target_group_<%= target_group_no %>").foundation('toggle');
+      $("#panel_<%= target.id %>").foundation('toggle');
+      }

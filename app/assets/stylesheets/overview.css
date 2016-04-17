@@ -1,0 +1,31 @@
+.target_box{
+  padding: 1em;
+}
+
+.space{
+    height: 1.5em;
+}
+
+progress[value] {
+    content: '80%';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.next-month{
+    visibility: hidden ;
+}
+
+.prev-month{
+    visibility: hidden ;
+}

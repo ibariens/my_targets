@@ -1,0 +1,52 @@
+<div class="row">&nbsp;</div>
+<div class="row"><h4><%= @target.name %></h4></div>
+<div class="row">
+  <%= form_for(@target, remote: true) do |target_form| %>
+      <%= month_calendar events: @target.target_days do |date, target_days| %>
+          <div class="float-right"><small><%= date.strftime("%d") %></small></div>
+          <% target_days.each do |target_day| %>
+              <%= target_form.fields_for :target_date, target_day do |target_day_f| %>
+                  <%= target_day_f.text_field :amount, :type => "number", :class => "input-group-field" %>
+              <% end %>
+          <% end %>
+      <% end %>
+
+
+      <div class="row">Total : <input type="text" name="total" id="total"/>
+        <a href="javascript:sumInputs()">Sum</a>
+      </div>
+
+      <div class="row">
+        <%= target_form.submit :class => "button", :value => "add update" %>
+      </div>
+
+
+  <% end %>
+
+
+
+  <script>
+    function sumInputs() {
+      var inputs = document.getElementsByTagName('input'),
+          result = document.getElementById('total'),
+          sum = 0;
+
+      for (var i = 0; i < inputs.length; i++) {
+        var ip = inputs[i];
+        if (ip.name && ip.name.indexOf("total") < 0) {
+          sum += parseFloat(ip.value) || 0;
+          console.log(sum);
+        }
+      }
+      result.value = sum;
+    }
+  </script>
+
+  <script>
+
+    $("form[data-remote]").on("ajax:success" , function(e, data, status, xhr){
+      alert("The article was deleted." + data );
+    });
+
+
+</script>

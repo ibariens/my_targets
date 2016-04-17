@@ -1,0 +1,25 @@
+<%# We want 4 targets on one row %>
+<div class="row">&nbsp;</div>
+
+<% @targets.find_in_batches(:batch_size => 4).with_index do |target_group, target_group_no| %>
+    <div class="row">&nbsp;</div>
+    <div class="row" id="target_group_<%= target_group_no %>" data-toggler data-animate="fade-in fade-out">
+      <% target_group.each do |target| %>
+          <%= render partial: "target", locals: {target: target, with_details: false} %>
+      <% end %>
+    </div>
+
+    <div class="row">&nbsp;</div>
+
+    <% target_group.each do |target| %>
+        <div class="row" id="panel_<%= target.id %>" data-toggler data-animate="fade-in fade-out" style="display:none">
+          <%= render partial: "target", locals: {target: target, with_details: true} %>
+          <%= render partial: "target_detailed" %>
+        </div>
+    <% end %>
+<% end %>
+
+
+
+
+
